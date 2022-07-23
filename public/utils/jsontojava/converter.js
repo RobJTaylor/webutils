@@ -1,5 +1,4 @@
 var modal;
-var objects = [];
 
 function parseJson() {
     try {
@@ -39,22 +38,30 @@ function processJson(json) {
         if (json.hasOwnProperty(key)) {
             if(Array.isArray(json[key])) {
                 var array = json[key];
-                var type = mapType(array);
-                java += "\tprivate List<" + mapType(array) + "> " + sanitizeKey(key) + ";\n";
+                var name = sanitizeKey(key);
+                if (typeof array[0] === "object") {
+                    java += "\tList<" + name.charAt(0).toUpperCase() + name.slice(1) + "> " + name + ";\n";
+                    java += "\tclass " + name.charAt(0).toUpperCase() + name.slice(1) + " {\n";
+                    java += processJson(array[0]);
+                    java += "\t}\n";
+                    return java;
+                }
+                java += "\tList<" + mapType(array) + "> " + name + ";\n";
             }
-            else if (typeof json[key] === "object") {
-                java += "public class " + sanitizeKey(key) + " {\n";
+            else if (json[key] !== null && typeof json[key] === "object") {
+                var name = sanitizeKey(key);
+                java += "class " + name.charAt(0).toUpperCase() + name.slice(1) + " {\n";
                 java += processJson(json[key]);
                 java += "}\n";
             }
             else if (typeof json[key] === "string") {
-                java += "\tprivate String " + sanitizeKey(key) + ";\n";
+                java += "\tString " + sanitizeKey(key) + ";\n";
             }
             else if (typeof json[key] === "number") {
-                java += "\tprivate int " + sanitizeKey(key) + ";\n";
+                java += "\tint " + sanitizeKey(key) + ";\n";
             }
             else if (typeof json[key] === "boolean") {
-                java += "\tprivate bool " + sanitizeKey(key) + ";\n";
+                java += "\tboolean " + sanitizeKey(key) + ";\n";
             }
         }
     }
@@ -66,18 +73,15 @@ function mapType(array) {
         return "String";
     } else if (typeof array[0] === "number") {
         return "int";
-    } else if (typeof array[0] === "boolean") {
-        return "bool";
+    } else if (typeof array[0] === "object" || typeof array[0] === "undefined") {
+        return "Object";
     } else {
         return typeof array[0];
     }
 }
 
 function sanitizeKey(key) {
-  key = key.replace(/-([a-z])/g, (g) => {
-    return g[1].toUpperCase();
-  });
-  return key.replace(/_([a-z])/g, (g) => {
+  return key.replace(/-([a-z])/g, (g) => {
     return g[1].toUpperCase();
   });
 }
