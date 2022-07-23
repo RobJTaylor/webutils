@@ -39,25 +39,47 @@ function processJson(json) {
         if (json.hasOwnProperty(key)) {
             if(Array.isArray(json[key])) {
                 var array = json[key];
-                java += "\tpublic List<" + typeof array[0] + "> " + key + ";\n";
+                var type = mapType(array);
+                java += "\tprivate List<" + mapType(array) + "> " + sanitizeKey(key) + ";\n";
             }
             else if (typeof json[key] === "object") {
-                java += "public class " + key + " {\n";
+                java += "public class " + sanitizeKey(key) + " {\n";
                 java += processJson(json[key]);
                 java += "}\n";
             }
             else if (typeof json[key] === "string") {
-                java += "\tpublic String " + key + ";\n";
+                java += "\tprivate String " + sanitizeKey(key) + ";\n";
             }
             else if (typeof json[key] === "number") {
-                java += "\tpublic int " + key + ";\n";
+                java += "\tprivate int " + sanitizeKey(key) + ";\n";
             }
             else if (typeof json[key] === "boolean") {
-                java += "\tpublic bool " + key + ";\n";
+                java += "\tprivate bool " + sanitizeKey(key) + ";\n";
             }
         }
     }
     return java;
+}
+
+function mapType(array) {
+    if (typeof array[0] === "string") {
+        return "String";
+    } else if (typeof array[0] === "number") {
+        return "int";
+    } else if (typeof array[0] === "boolean") {
+        return "bool";
+    } else {
+        return typeof array[0];
+    }
+}
+
+function sanitizeKey(key) {
+  key = key.replace(/-([a-z])/g, (g) => {
+    return g[1].toUpperCase();
+  });
+  return key.replace(/_([a-z])/g, (g) => {
+    return g[1].toUpperCase();
+  });
 }
 
 function copy() {
