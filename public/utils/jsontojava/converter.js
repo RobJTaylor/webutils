@@ -39,14 +39,7 @@ function processJson(json) {
             if(Array.isArray(json[key])) {
                 var array = json[key];
                 var name = sanitizeKey(key);
-                if (typeof array[0] === "object") {
-                    java += "\tList<" + name.charAt(0).toUpperCase() + name.slice(1) + "> " + name + ";\n";
-                    java += "\tclass " + name.charAt(0).toUpperCase() + name.slice(1) + " {\n";
-                    java += processJson(array[0]);
-                    java += "\t}\n";
-                    return java;
-                }
-                java += "\tList<" + mapType(array) + "> " + name + ";\n";
+                java += "List<" + mapType(array) + "> " + name + ";\n";
             }
             else if (json[key] !== null && typeof json[key] === "object") {
                 var name = sanitizeKey(key);
@@ -55,13 +48,13 @@ function processJson(json) {
                 java += "}\n";
             }
             else if (typeof json[key] === "string") {
-                java += "\tString " + sanitizeKey(key) + ";\n";
+                java += "String " + sanitizeKey(key) + ";\n";
             }
             else if (typeof json[key] === "number") {
-                java += "\tint " + sanitizeKey(key) + ";\n";
+                java += "int " + sanitizeKey(key) + ";\n";
             }
             else if (typeof json[key] === "boolean") {
-                java += "\tboolean " + sanitizeKey(key) + ";\n";
+                java += "boolean " + sanitizeKey(key) + ";\n";
             }
         }
     }
