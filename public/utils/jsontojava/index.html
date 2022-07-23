@@ -1,47 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>webutils - JSON to Java</title>
 
-    <script src="converter.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.9.1/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.9.1/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.9.1/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.9.1/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.9.1/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.9.1/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/9.9.1/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.9.1/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.9.1/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.9.1/firebase-performance-compat.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>webutils - JSON to Java</title>
 
-  </head>
-  <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <div id="nav"></div>
+  <script src="converter.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/9.9.1/firebase-app-compat.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/9.9.1/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-functions-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-messaging-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-storage-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-remote-config-compat.js"></script>
+  <script defer src="/__/firebase/9.9.1/firebase-performance-compat.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
-    <div class="container-fluid" style="padding-top: 70px;">
-      <!-- Main UI -->
-      <div class="card">
-        <div class="card-header">
-          JSON to Java
-        </div>
-        <div class="card-body">
-          <div id="status" class="alert" role="alert" style="display: none;"></div>
-          <h5 class="card-title">JSON to Java is a little utility created to generate Java classes from JSON</h5>
-          <button onclick="convertJson()" class="btn btn-primary float-end" style="padding: -10px;">Generate Java</button>
-          <input class="form-check-input float-end" type="checkbox" value="" id="generateGetter" style="margin-right: 10px;" checked>
-          <label class="form-check-label float-end" for="flexCheckChecked" style="padding-right: 5px;">
-            Generate getters & setters
-          </label>
-          <label for="jsonTextArea" class="form-label">JSON:</label>
-          <textarea id="json" class="form-control" style="margin-top: 10px;" rows="30" onblur="parseJson()">
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
+  </script>
+  <div id="nav"></div>
+
+  <div class="container-fluid" style="padding-top: 70px;">
+    <!-- Main UI -->
+    <div class="card">
+      <div class="card-header">
+        JSON to Java
+      </div>
+      <div class="card-body">
+        <div id="status" class="alert" role="alert" style="display: none;"></div>
+        <h5 class="card-title">JSON to Java is a little utility created to generate Java classes from JSON</h5>
+        <button onclick="convertJson()" class="btn btn-primary float-end" style="padding: -10px;">Generate Java</button>
+        <input class="form-check-input float-end" type="checkbox" value="" id="generateGetter"
+          style="margin-right: 10px;" checked>
+        <label class="form-check-label float-end" for="flexCheckChecked" style="padding-right: 5px;">
+          Generate getters & setters
+        </label>
+        <label for="jsonTextArea" class="form-label">JSON:</label>
+        <textarea id="json" class="form-control" style="margin-top: 10px;" rows="30" onblur="parseJson()">
             {
               "person": {
                 "name": "John Doe",
@@ -57,23 +63,22 @@
               }
             }
           </textarea>
-        </div>
       </div>
+    </div>
 
-      <!-- Java modal -->
-      <div id="java-modal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Generated code</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <button type="button" class="btn btn-primary float-end" onclick="copy()">Copy</button>
-              <textarea id="java" class="form-control" style="margin-top: 50px;" rows="10">
-            </div>
+    <!-- Java modal -->
+    <div id="java-modal" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Generated code</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <button type="button" class="btn btn-primary float-end" onclick="copy()">Copy</button>
+            <textarea id="java" class="form-control" style="margin-top: 50px;" rows="10">
           </div>
         </div>
       </div>
