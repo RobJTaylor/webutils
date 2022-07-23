@@ -34,9 +34,7 @@
   <div class="container-fluid" style="padding-top: 70px;">
     <!-- Main UI -->
     <div class="card">
-      <div class="card-header">
-        JSON to Java
-      </div>
+      <div class="card-header">JSON to Java</div>
       <div class="card-body">
         <div id="status" class="alert" role="alert" style="display: none;"></div>
         <h5 class="card-title">JSON to Java is a little utility created to generate Java classes from JSON</h5>
@@ -47,22 +45,7 @@
           Generate getters & setters
         </label>
         <label for="jsonTextArea" class="form-label">JSON:</label>
-        <textarea id="json" class="form-control" style="margin-top: 10px;" rows="30" onblur="parseJson()">
-            {
-              "person": {
-                "name": "John Doe",
-                "age": 42,
-                "phones": [
-                  "+44 1234567",
-                  "+44 2345678"
-                ],
-                "pet": {
-                  "name": "Spot",
-                  "species": "dog"
-                }
-              }
-            }
-          </textarea>
+        <textarea id="json" class="form-control" style="margin-top: 10px;" rows="30" onblur="parseJson()"></textarea>
       </div>
     </div>
 
