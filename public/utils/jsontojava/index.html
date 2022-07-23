@@ -36,6 +36,10 @@
           <div id="status" class="alert" role="alert" style="display: none;"></div>
           <h5 class="card-title">JSON to Java is a little utility created to generate Java classes from JSON</h5>
           <button onclick="convertJson()" class="btn btn-primary float-end" style="padding: -10px;">Generate Java</button>
+          <input class="form-check-input float-end" type="checkbox" value="" id="generateGetter" style="margin-right: 10px;" checked>
+          <label class="form-check-label float-end" for="flexCheckChecked" style="padding-right: 5px;">
+            Generate getters & setters
+          </label>
           <label for="jsonTextArea" class="form-label">JSON:</label>
           <textarea id="json" class="form-control" style="margin-top: 10px;" rows="30" onblur="parseJson()">
             {
@@ -45,7 +49,11 @@
                 "phones": [
                   "+44 1234567",
                   "+44 2345678"
-                ]
+                ],
+                "pet": {
+                  "name": "Spot",
+                  "species": "dog"
+                }
               },
               "text": "hello there"
             }
