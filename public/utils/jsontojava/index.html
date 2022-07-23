@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Firebase Hosting</title>
 
+    <script src="converter.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.9.1/firebase-app-compat.js"></script>
@@ -24,8 +25,18 @@
   <body>
     <div id="nav"></div>
 
-    <div class="container" style="padding-top: 100px;">
-
+    <div class="container-fluid" style="padding-top: 100px;">
+      <div class="card">
+        <div class="card-header">
+          JSON to Java
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">JSON to Java is a little utility created to generate Java classes from JSON</h5>
+          <button onclick="convertJson()" class="btn btn-primary float-end" style="padding: -10px;">Generate Java</button>
+          <label for="jsonTextArea" class="form-label">JSON:</label>
+          <textarea id="json" class="form-control" id="jsonTextArea" style="margin-top: 10px;" rows="30"></textarea>
+        </div>
+      </div>
     </div>
 
     <script>
