@@ -30,8 +30,9 @@
 
     <script>
       $(function(){
-        $("#nav").load("nav.html");
-        $("#home").addClass("active");
+        $("#nav").load("/nav.html", function() {
+          $("#jsontojava").addClass("active");
+        });
       });
     </script>
 

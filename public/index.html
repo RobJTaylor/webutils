@@ -40,8 +40,9 @@
 
     <script>
       $(function(){
-        $("#nav").load("nav.html");
-        $("#home").addClass("active");
+        $("#nav").load("/nav.html", function() {
+          $("#home").addClass("active");
+        });
       });
     </script>
 
