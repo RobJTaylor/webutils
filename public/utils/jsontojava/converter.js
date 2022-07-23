@@ -1,3 +1,5 @@
+var modal;
+
 function parseJson() {
     try {
         var json = JSON.parse($("#json").val());
@@ -23,4 +25,31 @@ function convertJson() {
         alert("JSON cannot be parsed. Check your syntax.");
         return;
     }
+
+    $("#java").val(processJson(json));
+    if (modal === undefined)
+        modal = new bootstrap.Modal(document.getElementById('java-modal'));
+    modal.show();
+}
+
+function processJson(json) {
+    var java = "";
+    for (var key in json) {
+        if (json.hasOwnProperty(key)) {
+            if (typeof json[key] === "object") {
+                java += "public class " + key + " {\n";
+                java += processJson(json[key]);
+                java += "}\n";
+            }
+            else {
+                java += "\tpublic String " + key + ";\n";
+            }
+        }
+    }
+    return java;
+}
+
+function copy() {
+    $("#java").select();
+    document.execCommand('copy');
 }
